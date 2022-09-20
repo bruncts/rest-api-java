@@ -1,5 +1,0 @@
-package com.restspringboot.exceptions.Handlers;
-
-public class StandardExceptionHandler {
-
-}
