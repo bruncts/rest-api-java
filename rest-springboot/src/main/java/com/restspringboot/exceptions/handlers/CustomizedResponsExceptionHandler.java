@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.restspringboot.exceptions.StandardExceptionResponse;
-import com.restspringboot.exceptions.UnsupportedMathException;
+import com.restspringboot.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 @RestController
@@ -25,10 +25,10 @@ public class CustomizedResponsExceptionHandler extends ResponseEntityExceptionHa
 		
 	}
 	
-	@ExceptionHandler(UnsupportedMathException.class)
-	public final ResponseEntity<StandardExceptionResponse> handleBadRequestException(Exception ex,  WebRequest request){
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public final ResponseEntity<StandardExceptionResponse> handleNotFoundExceptions(Exception ex,  WebRequest request){
 		StandardExceptionResponse standardExceptionResponse = new StandardExceptionResponse(Instant.now(), ex.getLocalizedMessage(), request.getDescription(false));
-		return new ResponseEntity<>(standardExceptionResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(standardExceptionResponse, HttpStatus.NOT_FOUND);
 		
 	}
 }

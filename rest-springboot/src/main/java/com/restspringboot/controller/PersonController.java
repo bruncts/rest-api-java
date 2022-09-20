@@ -6,6 +6,7 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,7 @@ public class PersonController {
 	private PersonService service;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person findPersonByID(@PathParam(value = "id") String id) {
+	public Person findPersonByID(@PathParam(value = "id") Long id) {
 		return service.findById(id);
 	}
 	
@@ -47,8 +48,9 @@ public class PersonController {
 	}
 	
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public void deletePerson(@PathParam(value = "id") String id) {
+	public ResponseEntity<?> deletePerson(@PathParam(value = "id") Long id) {
 		service.deletePerson(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
