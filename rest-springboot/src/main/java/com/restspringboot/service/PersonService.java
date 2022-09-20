@@ -26,6 +26,8 @@ public class PersonService {
 	}
 	
 	public List<Person> findAll() {;
+		logger.info("finding every person!");
+	
 		List<Person> persons = new ArrayList<>();
 		for (int i = 0; i < 9;i++) {
 			Person person = mockPerson(i);
@@ -34,10 +36,23 @@ public class PersonService {
 
 		return persons;
 	}
+	
+	public Person createPerson(Person person) {
+		logger.info("creating one person!");	
+		return person;
+	}
+	
+	public Person updatePerson(Person person) {
+		logger.info("updating person!");	
+		return person;
+	}
+	
+	public void deletePerson(String id) {
+		logger.info("deleting one person!");	
+	}
 
 	private Person mockPerson(int i) {
 		
-		logger.info("mock: finding everyone!");
 		Person person = new Person();
 		person.setId(counter.incrementAndGet());
 		person.setFirstName("mockFirstName: " + i);
