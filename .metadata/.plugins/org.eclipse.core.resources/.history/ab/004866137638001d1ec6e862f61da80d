@@ -1,0 +1,34 @@
+package com.restspringboot;
+
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MathController {
+	private static final String template = "Hello, %s!";
+	private final AtomicLong counter = new AtomicLong();
+	
+	@GetMapping("/sum/{firstNumber}/{secondNumber}")
+	public Double Sum(@PathVariable(value ="firstNumber") String firstNumber,
+					  @PathVariable(value ="secondNumber") String secondNumber) {
+		if(!isNumeric(firstNumber) || !isNumeric(secondNumber)) {
+			throw new RuntimeException();
+		}
+		return convertDouble(firstNumber) + convertDouble(firstNumber) ;
+	}
+
+	private Double convertDouble(String number) {
+		if (number == null) throw new RuntimeException();;
+		String strNumber =  number.replaceAll(",", ".");
+		if(isNumeric(strNumber)) return Double.parseDouble(strNumber);
+		return 0D;
+	}
+
+	private boolean isNumeric(String firstNumber) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

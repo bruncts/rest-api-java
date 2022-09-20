@@ -1,0 +1,19 @@
+package com.restspringboot;
+
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MathController {
+	private static final String template = "Hello, %s!";
+	private final AtomicLong counter = new AtomicLong();
+	
+	@GetMapping("/sum/{firstNumber}/{secondNumber}")
+	public Double Sum(@PathVariable(value ="firstNumber") String FirstNumber,
+					  @PathVariable(value ="secondNumber") String secondNumber) {
+		return 1D;
+	}
+}
