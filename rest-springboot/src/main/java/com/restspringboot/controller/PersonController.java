@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.restspringboot.model.Person;
-import com.restspringboot.service.PersonService;
+import com.restspringboot.models.Person;
+import com.restspringboot.services.PersonService;
 
 @RestController
 @RequestMapping("/person")

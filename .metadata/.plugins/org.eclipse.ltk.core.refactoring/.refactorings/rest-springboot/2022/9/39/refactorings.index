@@ -11,3 +11,7 @@
 1663695275715	Rename type 'MathController'
 1663695384923	Delete element
 1663698079800	Move compilation unit
+1663703811158	Rename resource 'application.properties'
+1663706876822	Rename package 'com.restspringboot.model'
+1663706890873	Rename package 'com.restspringboot.repository'
+1663706902070	Rename package 'com.restspringboot.service'
