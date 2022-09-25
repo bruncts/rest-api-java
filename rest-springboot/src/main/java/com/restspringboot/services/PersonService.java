@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restspringboot.data.vo.v1.PersonVO;
+import com.restspringboot.data.vo.v2.PersonVOV2;
 import com.restspringboot.exceptions.ResourceNotFoundException;
 import com.restspringboot.mapper.DozerMapper;
+import com.restspringboot.mapper.custum.PersonMapper;
 import com.restspringboot.models.Person;
 import com.restspringboot.repositories.PersonRepository;
 
@@ -16,34 +18,47 @@ import com.restspringboot.repositories.PersonRepository;
 public class PersonService {
 
 	private Logger logger = Logger.getLogger(PersonService.class.getName());
-	
+
 	@Autowired
 	PersonRepository repository;
-		
+	
+	@Autowired
+	PersonMapper mapper;
+	
 	public PersonVO findById(Long id) {
 		logger.info("finding the person by id!");
-		var entity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("there is no person with the id: " + id));
-		return DozerMapper.parseObject(entity, PersonVO.class) ;
+		var entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("there is no person with the id: " + id));
+		return DozerMapper.parseObject(entity, PersonVO.class);
 	}
-	
-	public List<PersonVO> findAll() {;
+
+	public List<PersonVO> findAll() {
+		;
 		logger.info("finding every person!");
-		
-		return DozerMapper.parseList(repository.findAll(), PersonVO.class) ;
+
+		return DozerMapper.parseList(repository.findAll(), PersonVO.class);
 
 	}
-	
+
 	public PersonVO createPerson(PersonVO personVO) {
-		logger.info("creating one person!");	
+		logger.info("creating one person!");
 		var entity = DozerMapper.parseObject(personVO, Person.class);
 		var vo = repository.save(entity);
 		return DozerMapper.parseObject(vo, PersonVO.class);
 	}
-	
+
+	public PersonVOV2 createPersonV2(PersonVOV2 personVOV2) {
+		logger.info("creating one person with v2!");
+		var entity = mapper.convertVOV2ToPerson(personVOV2);
+		var person = repository.save(entity);
+		return mapper.convertPersonToVOV2(person);
+	}
+
 	public PersonVO updatePerson(PersonVO person) {
 		logger.info("updating person!");
-		var entity = repository.findById(person.getId()).orElseThrow(()-> new ResourceNotFoundException("there is no person with the id: " + person.getId()));
-		
+		var entity = repository.findById(person.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("there is no person with the id: " + person.getId()));
+
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
@@ -51,12 +66,12 @@ public class PersonService {
 		var vo = repository.save(entity);
 		return DozerMapper.parseObject(vo, PersonVO.class);
 	}
-	
+
 	public void deletePerson(Long id) {
 		logger.info("deleting one person!");
-		var entity = repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("there is no person with the id: " + id));
+		var entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("there is no person with the id: " + id));
 		repository.delete(entity);
 	}
 
-	
 }
