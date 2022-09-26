@@ -26,27 +26,27 @@ public class PersonController {
 	@Autowired
 	private PersonService service;
 
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public PersonVO findPersonByID(@PathVariable(value = "id") Long id) {
 		return service.findById(id);
 	}
 	
-	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping( produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public List<PersonVO> findAll() {
 		return service.findAll();
 	}
 	
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public PersonVO createPerson(@RequestBody PersonVO PersonVO) {
 		return service.createPerson(PersonVO);
 	}
 	
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public PersonVO updatePerson(@RequestBody PersonVO PersonVO) {
 		return service.updatePerson(PersonVO);
 	}
 	
-	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<?> deletePerson(@PathVariable(value = "id") Long id) {
 		service.deletePerson(id);
 		return ResponseEntity.noContent().build();
