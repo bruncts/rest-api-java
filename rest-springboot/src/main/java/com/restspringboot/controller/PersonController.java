@@ -18,7 +18,7 @@ import com.restspringboot.data.vo.v1.PersonVO;
 import com.restspringboot.services.PersonService;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 //	private static final String template = "Hello, %s!";
 //	private final AtomicLong counter = new AtomicLong();
